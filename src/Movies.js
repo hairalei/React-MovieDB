@@ -1,8 +1,7 @@
 import React from "react";
 import { useGlobalContext } from "./context";
 import { Link } from "react-router-dom";
-
-const defaultImg =
+const url =
   "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png";
 
 const Movies = () => {
@@ -11,16 +10,15 @@ const Movies = () => {
   if (isLoading) {
     return <div className="loading"></div>;
   }
-
   return (
     <section className="movies">
       {movies.map((movie) => {
         const { imdbID: id, Poster: poster, Title: title, Year: year } = movie;
 
         return (
-          <Link key={id} to={`/movies/${id}`} className="movie">
+          <Link to={`/movies/${id}`} key={id} className="movie">
             <article>
-              <img src={poster === "N/A" ? defaultImg : poster} alt={title} />
+              <img src={poster === "N/A" ? url : poster} alt={title} />
               <div className="movie-info">
                 <h4 className="title">{title}</h4>
                 <p>{year}</p>

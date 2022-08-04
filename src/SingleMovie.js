@@ -1,40 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { API_ENDPOINT, useGlobalContext } from "./context";
-
+import { API_ENDPOINT } from "./context";
+import useFetch from "./useFetch";
 const SingleMovie = () => {
   const { id } = useParams();
-  const { isLoading, setIsLoading, movie, setMovie, error, setError } =
-    useGlobalContext();
-
-  const fetchMovie = async (url) => {
-    setIsLoading(true);
-
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-
-      if (data.Response === "True") {
-        setMovie(data);
-        setError({ show: false, msg: "" });
-      } else {
-        setError({ show: true, msg: data.Error });
-      }
-
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchMovie(`${API_ENDPOINT}&i=${id}&plot=full`);
-  }, [id]);
+  const { isLoading, error, data: movie } = useFetch(`&i=${id}&plot=full`);
 
   if (isLoading) {
     return <div className="loading"></div>;
   }
-
   if (error.show) {
     return (
       <div className="page-error">
@@ -45,9 +19,7 @@ const SingleMovie = () => {
       </div>
     );
   }
-
   const { Poster: poster, Title: title, Plot: plot, Year: year } = movie;
-
   return (
     <section className="single-movie">
       <img src={poster} alt={title} />
