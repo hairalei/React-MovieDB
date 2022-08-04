@@ -1,3 +1,7 @@
-```sh
-npm install react-router-dom@6
-```
+# Movie DB
+
+Movie database using [OMDb API](https://www.omdbapi.com/) and ReactJS.
+
+## Live preview
+
+![Movie DB](public/Movie%20DB.gif)
