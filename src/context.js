@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
-// make sure to use https
-import useFetch from "./useFetch";
-export const API_ENDPOINT = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_MOVIE_API_KEY}`;
+import React, { useState, useContext } from "react";
+import useFetch from "./hooks/useFetch";
+
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
@@ -14,9 +13,9 @@ const AppProvider = ({ children }) => {
     </AppContext.Provider>
   );
 };
-// make sure use
-export const useGlobalContext = () => {
+
+const useGlobalContext = () => {
   return useContext(AppContext);
 };
 
-export { AppContext, AppProvider };
+export { AppContext, AppProvider, useGlobalContext };
